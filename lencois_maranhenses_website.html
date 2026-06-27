@@ -1,0 +1,794 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lençóis Maranhenses National Park, Brazil | The Desert of Lagoons</title>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;0,900;1,400&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --gold: #D4A843;
+            --lagoon-light: #7DD3C0;
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            color: #fff;
+            line-height: 1.7;
+            overflow-x: hidden;
+            background: #1a1a1a;
+        }
+
+        /* ─── HERO ─── */
+        .hero {
+            position: relative;
+            height: 100vh;
+            min-height: 750px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            overflow: hidden;
+        }
+
+        .hero-bg {
+            position: absolute;
+            inset: 0;
+            background: url('https://kimi-web-img.moonshot.cn/img/www.airpano.com/5c019ae29e8d89f065d8c0955c5a5fd2172d24c4.jpg') center/cover no-repeat;
+            filter: brightness(0.45) saturate(1.15);
+            animation: kenBurns 22s ease-in-out infinite alternate;
+        }
+
+        @keyframes kenBurns {
+            0% { transform: scale(1); }
+            100% { transform: scale(1.06); }
+        }
+
+        .hero-overlay {
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(180deg, rgba(0,0,0,0.2) 0%, rgba(0,0,0,0.05) 40%, rgba(0,0,0,0.55) 100%);
+        }
+
+        .hero-content {
+            position: relative;
+            z-index: 2;
+            text-align: center;
+            max-width: 950px;
+            padding: 0 2rem;
+        }
+
+        .hero-subtitle {
+            font-size: 0.75rem;
+            font-weight: 500;
+            letter-spacing: 0.4em;
+            text-transform: uppercase;
+            color: var(--gold);
+            margin-bottom: 1.5rem;
+            opacity: 0;
+            animation: fadeUp 1s ease 0.3s forwards;
+        }
+
+        .hero-title {
+            font-family: 'Playfair Display', serif;
+            font-size: clamp(2.8rem, 6.5vw, 5.5rem);
+            font-weight: 900;
+            color: #fff;
+            line-height: 1.05;
+            text-shadow: 0 4px 40px rgba(0,0,0,0.35);
+            opacity: 0;
+            animation: fadeUp 1.2s ease 0.6s forwards;
+        }
+
+        .hero-title span {
+            font-style: italic;
+            font-weight: 400;
+            color: var(--lagoon-light);
+        }
+
+        .hero-tagline {
+            font-family: 'Playfair Display', serif;
+            font-size: clamp(1.1rem, 2.2vw, 1.5rem);
+            font-weight: 400;
+            font-style: italic;
+            color: rgba(255,255,255,0.82);
+            margin-top: 1.2rem;
+            opacity: 0;
+            animation: fadeUp 1s ease 0.9s forwards;
+        }
+
+        .scroll-indicator {
+            position: absolute;
+            bottom: 5.5rem;
+            left: 50%;
+            transform: translateX(-50%);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 0.6rem;
+            color: rgba(255,255,255,0.55);
+            font-size: 0.7rem;
+            letter-spacing: 0.25em;
+            text-transform: uppercase;
+            opacity: 0;
+            animation: fadeUp 1s ease 1.5s forwards;
+        }
+
+        .scroll-indicator::after {
+            content: '';
+            width: 1px;
+            height: 45px;
+            background: linear-gradient(to bottom, rgba(255,255,255,0.5), transparent);
+            animation: scrollPulse 2.2s ease-in-out infinite;
+        }
+
+        @keyframes scrollPulse {
+            0%, 100% { opacity: 0.3; transform: scaleY(0.7); }
+            50% { opacity: 1; transform: scaleY(1); }
+        }
+
+        @keyframes fadeUp {
+            from { opacity: 0; transform: translateY(35px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        /* ─── STUDENT INFO BAR ─── */
+        .student-bar {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            z-index: 3;
+            background: rgba(0,0,0,0.5);
+            backdrop-filter: blur(12px);
+            border-top: 1px solid rgba(255,255,255,0.08);
+            padding: 1rem 2rem;
+            opacity: 0;
+            animation: fadeUp 1s ease 1.2s forwards;
+        }
+
+        .student-bar-inner {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 2.5rem;
+            flex-wrap: wrap;
+            font-size: 0.75rem;
+            color: rgba(255,255,255,0.8);
+            letter-spacing: 0.03em;
+        }
+
+        .student-bar-inner span {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .student-bar-inner strong {
+            color: var(--gold);
+            font-weight: 600;
+        }
+
+        .student-bar-divider {
+            width: 1px;
+            height: 16px;
+            background: rgba(255,255,255,0.15);
+        }
+
+        /* ─── MAGAZINE CARD SECTIONS ─── */
+        .magazine-section {
+            position: relative;
+            min-height: 100vh;
+            display: flex;
+            align-items: flex-end;
+            overflow: hidden;
+            padding: 0;
+        }
+
+        .magazine-bg {
+            position: absolute;
+            inset: 0;
+            background-size: cover;
+            background-position: center;
+            filter: brightness(0.7) saturate(1.05);
+            transition: transform 0.8s ease;
+        }
+
+        .magazine-section:hover .magazine-bg {
+            transform: scale(1.03);
+        }
+
+        .magazine-overlay {
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(
+                0deg,
+                rgba(0,0,0,0.78) 0%,
+                rgba(0,0,0,0.45) 25%,
+                rgba(0,0,0,0.15) 55%,
+                rgba(0,0,0,0.25) 100%
+            );
+        }
+
+        .magazine-content {
+            position: relative;
+            z-index: 2;
+            width: 100%;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 5rem 3rem 4rem;
+        }
+
+        .magazine-number {
+            font-family: 'Playfair Display', serif;
+            font-size: 1rem;
+            font-weight: 700;
+            color: var(--gold);
+            letter-spacing: 0.15em;
+            margin-bottom: 1rem;
+            opacity: 0.9;
+        }
+
+        .magazine-title {
+            font-family: 'Playfair Display', serif;
+            font-size: clamp(2.2rem, 5vw, 3.5rem);
+            font-weight: 700;
+            color: #fff;
+            line-height: 1.15;
+            margin-bottom: 1.2rem;
+            max-width: 700px;
+        }
+
+        .magazine-title em {
+            font-style: italic;
+            color: var(--lagoon-light);
+        }
+
+        .magazine-text {
+            font-size: 1rem;
+            color: rgba(255,255,255,0.85);
+            line-height: 1.8;
+            max-width: 650px;
+            margin-bottom: 1.5rem;
+        }
+
+        .magazine-text p {
+            margin-bottom: 1rem;
+        }
+
+        .magazine-text p:last-child {
+            margin-bottom: 0;
+        }
+
+        .magazine-text strong {
+            color: #fff;
+            font-weight: 600;
+        }
+
+        .magazine-text em {
+            color: var(--lagoon-light);
+            font-style: italic;
+        }
+
+        /* ─── ACCENT IMAGES STRIP ─── */
+        .accent-strip {
+            display: flex;
+            gap: 1rem;
+            margin-top: 2rem;
+            flex-wrap: wrap;
+        }
+
+        .accent-img {
+            flex: 1;
+            min-width: 200px;
+            height: 160px;
+            border-radius: 10px;
+            overflow: hidden;
+            position: relative;
+            box-shadow: 0 8px 30px rgba(0,0,0,0.3);
+            transition: transform 0.4s ease;
+        }
+
+        .accent-img:hover {
+            transform: translateY(-6px) scale(1.02);
+        }
+
+        .accent-img img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            display: block;
+        }
+
+        .accent-img-caption {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            background: linear-gradient(to top, rgba(0,0,0,0.7), transparent);
+            color: rgba(255,255,255,0.85);
+            padding: 2rem 0.8rem 0.6rem;
+            font-size: 0.72rem;
+            font-style: italic;
+        }
+
+        /* ─── ROUTE STEPS ─── */
+        .route-steps {
+            display: flex;
+            gap: 1rem;
+            margin-top: 2rem;
+            flex-wrap: wrap;
+        }
+
+        .route-step {
+            flex: 1;
+            min-width: 200px;
+            background: rgba(255,255,255,0.08);
+            backdrop-filter: blur(16px);
+            padding: 1.5rem;
+            border-radius: 12px;
+            border: 1px solid rgba(255,255,255,0.1);
+            transition: all 0.3s ease;
+        }
+
+        .route-step:hover {
+            background: rgba(255,255,255,0.12);
+            transform: translateY(-4px);
+        }
+
+        .route-step-num {
+            font-family: 'Playfair Display', serif;
+            font-size: 2rem;
+            font-weight: 700;
+            color: var(--gold);
+            line-height: 1;
+            margin-bottom: 0.5rem;
+        }
+
+        .route-step h4 {
+            font-size: 0.95rem;
+            font-weight: 600;
+            color: #fff;
+            margin-bottom: 0.3rem;
+        }
+
+        .route-step p {
+            font-size: 0.85rem;
+            color: rgba(255,255,255,0.65);
+            margin: 0;
+            line-height: 1.5;
+        }
+
+        /* ─── ACCOM OPTIONS ─── */
+        .accom-options {
+            display: flex;
+            gap: 1.2rem;
+            margin-top: 2rem;
+            flex-wrap: wrap;
+        }
+
+        .accom-option {
+            flex: 1;
+            min-width: 280px;
+            background: rgba(255,255,255,0.08);
+            backdrop-filter: blur(16px);
+            padding: 1.8rem;
+            border-radius: 12px;
+            border: 1px solid rgba(255,255,255,0.1);
+            border-top: 3px solid var(--lagoon);
+            transition: all 0.3s ease;
+        }
+
+        .accom-option:hover {
+            background: rgba(255,255,255,0.12);
+            transform: translateY(-4px);
+        }
+
+        .accom-option .tag {
+            display: inline-block;
+            font-size: 0.65rem;
+            font-weight: 600;
+            letter-spacing: 0.12em;
+            text-transform: uppercase;
+            color: var(--lagoon-light);
+            background: rgba(45,181,167,0.15);
+            padding: 0.3rem 0.8rem;
+            border-radius: 20px;
+            margin-bottom: 0.8rem;
+        }
+
+        .accom-option h4 {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.2rem;
+            color: #fff;
+            margin-bottom: 0.5rem;
+        }
+
+        .accom-option p {
+            font-size: 0.9rem;
+            color: rgba(255,255,255,0.75);
+            margin: 0;
+            line-height: 1.7;
+        }
+
+        /* ─── FUTURE CARDS ─── */
+        .future-cards {
+            display: flex;
+            gap: 1.2rem;
+            margin-top: 2rem;
+            flex-wrap: wrap;
+        }
+
+        .future-card {
+            flex: 1;
+            min-width: 250px;
+            background: rgba(255,255,255,0.08);
+            backdrop-filter: blur(16px);
+            padding: 1.8rem;
+            border-radius: 12px;
+            border: 1px solid rgba(255,255,255,0.1);
+            transition: all 0.3s ease;
+        }
+
+        .future-card:hover {
+            background: rgba(255,255,255,0.12);
+            transform: translateY(-4px);
+        }
+
+        .future-card-icon {
+            font-size: 1.8rem;
+            margin-bottom: 0.6rem;
+        }
+
+        .future-card h4 {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.15rem;
+            color: #fff;
+            margin-bottom: 0.5rem;
+        }
+
+        .future-card p {
+            font-size: 0.9rem;
+            color: rgba(255,255,255,0.75);
+            margin: 0;
+            line-height: 1.7;
+        }
+
+        .future-closing {
+            margin-top: 2.5rem;
+            padding-top: 1.5rem;
+            border-top: 1px solid rgba(255,255,255,0.1);
+        }
+
+        .future-closing p {
+            font-family: 'Playfair Display', serif;
+            font-size: clamp(1.1rem, 2.5vw, 1.5rem);
+            font-style: italic;
+            color: rgba(255,255,255,0.92);
+            line-height: 1.5;
+            max-width: 700px;
+        }
+
+        /* ─── CLOSING QUOTE ─── */
+        .closing-quote {
+            position: relative;
+            min-height: 60vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            overflow: hidden;
+            padding: 4rem 2rem;
+        }
+
+        .closing-bg {
+            position: absolute;
+            inset: 0;
+            background: url('https://kimi-web-img.moonshot.cn/img/ipt.images.tshiftcdn.com/e68a12a0d012388d6d4408c0760fa90df219b062.jpg') center/cover no-repeat;
+            filter: brightness(0.5) saturate(1.1);
+            transition: transform 0.8s ease;
+        }
+
+        .closing-quote:hover .closing-bg {
+            transform: scale(1.03);
+        }
+
+        .closing-overlay {
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(0deg, rgba(0,0,0,0.7) 0%, rgba(0,0,0,0.3) 50%, rgba(0,0,0,0.5) 100%);
+        }
+
+        .closing-content {
+            position: relative;
+            z-index: 2;
+            text-align: center;
+            max-width: 800px;
+        }
+
+        .closing-content blockquote {
+            font-family: 'Playfair Display', serif;
+            font-size: clamp(1.6rem, 3.5vw, 2.5rem);
+            font-style: italic;
+            font-weight: 400;
+            color: #fff;
+            line-height: 1.4;
+            text-shadow: 0 2px 20px rgba(0,0,0,0.4);
+        }
+
+        .closing-content .quote-author {
+            margin-top: 1.5rem;
+            font-size: 0.8rem;
+            letter-spacing: 0.2em;
+            text-transform: uppercase;
+            color: rgba(255,255,255,0.6);
+        }
+
+        /* ─── FOOTER ─── */
+        footer {
+            background: #111;
+            color: rgba(255,255,255,0.4);
+            text-align: center;
+            padding: 2rem;
+            font-size: 0.75rem;
+        }
+
+        /* ─── RESPONSIVE ─── */
+        @media (max-width: 900px) {
+            .student-bar-inner {
+                flex-direction: column;
+                gap: 0.5rem;
+                text-align: center;
+            }
+            .student-bar-divider { display: none; }
+            .hero { min-height: 600px; }
+            .magazine-content { padding: 4rem 1.5rem 3rem; }
+            .route-step, .accom-option, .future-card, .accent-img {
+                min-width: 100%;
+            }
+            .accent-img {
+                height: 200px;
+            }
+        }
+
+        @media (max-width: 600px) {
+            .hero-title { font-size: 2.2rem; }
+            .student-bar { padding: 0.8rem 1rem; }
+            .magazine-title { font-size: 1.8rem; }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- ════════════════════════════════════════ -->
+    <!-- HERO                                    -->
+    <!-- ════════════════════════════════════════ -->
+    <header class="hero">
+        <div class="hero-bg"></div>
+        <div class="hero-overlay"></div>
+        <div class="hero-content">
+            <div class="hero-subtitle">Discover Brazil</div>
+            <h1 class="hero-title">The Desert of <span>Lagoons</span></h1>
+            <p class="hero-tagline">Lençóis Maranhenses National Park — Where Sand Meets Water</p>
+        </div>
+        <div class="scroll-indicator">Scroll to Explore</div>
+        <div class="student-bar">
+            <div class="student-bar-inner">
+                <span><strong>Student Name:</strong> Pengcheng Wang</span>
+                <div class="student-bar-divider"></div>
+                <span><strong>Student ID:</strong> 2300880073</span>
+                <div class="student-bar-divider"></div>
+                <span><strong>Class & Group:</strong> Group A, Team 8</span>
+                <div class="student-bar-divider"></div>
+                <span><strong>Destination Focus:</strong> Lençóis Maranhenses National Park, Brazil</span>
+            </div>
+        </div>
+    </header>
+
+    <!-- ════════════════════════════════════════ -->
+    <!-- 01. THE SURREAL DESTINATION             -->
+    <!-- 背景：日落沙丘                         -->
+    <!-- ════════════════════════════════════════ -->
+    <section class="magazine-section" id="surreal">
+        <div class="magazine-bg" style="background-image: url('https://kimi-web-img.moonshot.cn/img/www.airpano.ru/ae5a267cbb1332adf0e618676acb51f7b8178bbc.jpg');"></div>
+        <div class="magazine-overlay"></div>
+        <div class="magazine-content">
+            <div class="magazine-number">01 — The Surreal Destination</div>
+            <h2 class="magazine-title">A Landscape That <em>Defies</em> Logic</h2>
+            <div class="magazine-text">
+                <p>
+                    This is the most unique surreal landscape on Earth. <strong>Lençóis Maranhenses</strong> is not a true desert — its annual rainfall reaches an astonishing <strong>1,600 millimeters</strong>. From January to May, torrential tropical storms drench the region, and the rainwater gathers on an impermeable rock layer beneath the sand, forming tens of thousands of crystal-clear, freshwater lagoons in shades of blue and green.
+                </p>
+                <p>
+                    During the peak season from <strong>June to September</strong>, the landscape reaches its most breathtaking state: an extreme contrast of blinding white sand and <em>emerald-green</em> water that stretches to every horizon. For international travelers seeking off-the-beaten-path adventure and pristine natural ecology, this destination offers an unparalleled <strong>Unique Selling Proposition (USP)</strong> that cannot be replicated anywhere else on the planet.
+                </p>
+            </div>
+            <div class="accent-strip">
+                <div class="accent-img">
+                    <img src="https://kimi-web-img.moonshot.cn/img/media.istockphoto.com/79381e7ee55a0e450a75b81dd7810871729eafc7.jpg" alt="Aerial view of white sand dunes intertwined with turquoise lagoons">
+                    <div class="accent-img-caption">White dunes & turquoise lagoons</div>
+                </div>
+                <div class="accent-img">
+                    <img src="https://kimi-web-img.moonshot.cn/img/media-cdn.tripadvisor.com/b611b75034d6ee4979e89b2310f71a82aad0f604.jpg" alt="Visitors swimming in Lagoa Azul">
+                    <div class="accent-img-caption">Swimming in Lagoa Azul</div>
+                </div>
+                <div class="accent-img">
+                    <img src="https://kimi-web-img.moonshot.cn/img/ipt.images.tshiftcdn.com/7b03fdcb8b37f2ec9bc74a07fcae2af60274e2e3.jpg" alt="Soft pastel sunrise over dunes">
+                    <div class="accent-img-caption">Pastel sunrise over dunes</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ════════════════════════════════════════ -->
+    <!-- 02. SEAMLESS ACCESSIBILITY              -->
+    <!-- 背景：4x4越野车航拍沙丘                 -->
+    <!-- ════════════════════════════════════════ -->
+    <section class="magazine-section" id="access">
+        <div class="magazine-bg" style="background-image: url('https://kimi-web-img.moonshot.cn/img/cdn.getyourguide.com/e1d8cdb84271bd05d82732ca730adf552f2c242c.jpg');"></div>
+        <div class="magazine-overlay"></div>
+        <div class="magazine-content">
+            <div class="magazine-number">02 — Seamless Accessibility</div>
+            <h2 class="magazine-title">The Journey <em>Is</em> the Adventure</h2>
+            <div class="magazine-text">
+                <p>
+                    Reaching this paradise is an unforgettable adventure in itself. International travelers typically fly into <strong>São Luís</strong>, the capital of Maranhão state, then transfer to a specialized <strong>4x4 off-road vehicle</strong> or shuttle bus for the roughly <strong>4-hour eastward journey</strong> to Barreirinhas — the gateway town to the national park.
+                </p>
+                <p>
+                    Private vehicles are strictly prohibited inside the park boundaries. Visitors must board <strong>licensed guide-driven professional 4x4s</strong> to cross the rivers and venture deep into this magical white sea of sand, ensuring both safety and minimal environmental impact.
+                </p>
+            </div>
+            <div class="route-steps">
+                <div class="route-step">
+                    <div class="route-step-num">1</div>
+                    <h4>Fly to São Luís</h4>
+                    <p>International gateway airport in Maranhão state</p>
+                </div>
+                <div class="route-step">
+                    <div class="route-step-num">2</div>
+                    <h4>4x4 to Barreirinhas</h4>
+                    <p>~4 hours east via off-road vehicle</p>
+                </div>
+                <div class="route-step">
+                    <div class="route-step-num">3</div>
+                    <h4>Licensed Guide Entry</h4>
+                    <p>Cross rivers in professional 4x4s</p>
+                </div>
+            </div>
+            <div class="accent-strip" style="margin-top: 1.5rem;">
+                <div class="accent-img">
+                    <img src="https://kimi-web-img.moonshot.cn/img/media.tacdn.com/98e766b2cba1f93ff7171b5c77db674ebf064730.jpg" alt="4x4 vehicle on white sand dunes">
+                    <div class="accent-img-caption">4x4 crossing the white sand sea</div>
+                </div>
+                <div class="accent-img">
+                    <img src="https://kimi-web-img.moonshot.cn/img/cdn.getyourguide.com/6db3f38f28762f15252ccc1afe83ddc6cae87c21.jpg" alt="Tourists walking along a dune ridge beside a lagoon">
+                    <div class="accent-img-caption">Trekking along the dune ridges</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ════════════════════════════════════════ -->
+    <!-- 03. IMMERSIVE ACCOMMODATION             -->
+    <!-- 背景：Pousada热带泳池                   -->
+    <!-- ════════════════════════════════════════ -->
+    <section class="magazine-section" id="accommodation">
+        <div class="magazine-bg" style="background-image: url('https://kimi-web-img.moonshot.cn/img/images.trvl-media.com/51aa0d33d98a0a7664755ea3078ab145217c173c.jpg');"></div>
+        <div class="magazine-overlay"></div>
+        <div class="magazine-content">
+            <div class="magazine-number">03 — Immersive Accommodation</div>
+            <h2 class="magazine-title">Where Comfort Meets <em>Nature</em></h2>
+            <div class="magazine-text">
+                <p>
+                    To perfect the sensory experience, the region offers two distinctly different accommodation styles. <strong>Barreirinhas</strong> features well-appointed boutique eco-lodges (Pousadas) complete with modern pools and full amenities — ideal for traditional travelers who value comfort and convenience.
+                </p>
+                <p>
+                    At the river-sea convergence sits the fishing village of <strong>Atins</strong>, home to an array of high-quality rustic-luxury eco retreats. Step out of your door directly onto the beach, and let the rhythm of nature replace the noise of the modern world. For high-net-worth travelers seeking low-carbon sustainable tourism, Atins offers the ultimate immersion into the local natural cadence.
+                </p>
+            </div>
+            <div class="accom-options">
+                <div class="accom-option">
+                    <span class="tag">Comfort & Convenience</span>
+                    <h4>Barreirinhas Boutique Pousadas</h4>
+                    <p>Modern eco-lodges with pools, tropical gardens, and easy access to park tours. Perfect for families and traditional travelers.</p>
+                </div>
+                <div class="accom-option">
+                    <span class="tag">Rustic Luxury</span>
+                    <h4>Atins Eco Retreats</h4>
+                    <p>Thatched-roof hideaways and beachfront hammocks where the Atlantic breeze is your air conditioning. For the conscious luxury seeker.</p>
+                </div>
+            </div>
+            <div class="accent-strip">
+                <div class="accent-img">
+                    <img src="https://kimi-web-img.moonshot.cn/img/images.trvl-media.com/1b2bd74aa6d22b8151d36af5ceb712a608d48b22.jpg" alt="Pousada pool with tropical palms">
+                    <div class="accent-img-caption">Pousada poolside serenity</div>
+                </div>
+                <div class="accent-img">
+                    <img src="https://kimi-web-img.moonshot.cn/img/q-xx.bstatic.com/4a10ea8be2ceff49089fe2fe94c5539c2f2e6fb5.jpg" alt="Colorful hammock at Atins eco retreat">
+                    <div class="accent-img-caption">Atins hammock life</div>
+                </div>
+                <div class="accent-img">
+                    <img src="https://kimi-web-img.moonshot.cn/img/images.trvl-media.com/aae55fba281a4dd1d630604f82cfcae455e3a936.jpg" alt="Boutique eco-lodge interior with natural materials">
+                    <div class="accent-img-caption">Natural material interiors</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ════════════════════════════════════════ -->
+    <!-- 04. FUTURE OPPORTUNITIES                 -->
+    <!-- 背景：360°全景日落沙丘                   -->
+    <!-- ════════════════════════════════════════ -->
+    <section class="magazine-section" id="future">
+        <div class="magazine-bg" style="background-image: url('https://kimi-web-img.moonshot.cn/img/cloudflare1.360gigapixels.com/ea681c861b3404b51fcbe0bdfd40b6bd7bf8e30e.jpg');"></div>
+        <div class="magazine-overlay"></div>
+        <div class="magazine-content">
+            <div class="magazine-number">04 — Future Opportunities</div>
+            <h2 class="magazine-title">A Sustainable <em>Vision</em></h2>
+            <div class="magazine-text">
+                <p>
+                    As a strictly protected national park, Lençóis Maranhenses holds an inherent advantage in low-carbon eco-tourism. Looking ahead, the introduction of <strong>premium stargazing experiences</strong>, <strong>certified guide-led long-distance trekking</strong>, and <strong>helicopter aerial photography tours</strong> will further capture the high-net-worth international market.
+                </p>
+                <p>
+                    Lençóis Maranhenses is more than a travel destination — it is a fleeting ecological miracle suspended between sand and water, awaiting discovery by travelers from across the globe.
+                </p>
+            </div>
+            <div class="future-cards">
+                <div class="future-card">
+                    <div class="future-card-icon">🌿</div>
+                    <h4>Eco-Tourism Strengths</h4>
+                    <p>Strict national park regulations ensure zero vehicle pollution and minimal human footprint, preserving the pristine dune-lagoon ecosystem.</p>
+                </div>
+                <div class="future-card">
+                    <div class="future-card-icon">✨</div>
+                    <h4>Premium Experiences</h4>
+                    <p>Stargazing under unpolluted skies, certified eco-trekking, and helicopter aerial tours for discerning high-value travelers.</p>
+                </div>
+            </div>
+            <div class="accent-strip">
+                <div class="accent-img">
+                    <img src="https://kimi-web-img.moonshot.cn/img/ipt.images.tshiftcdn.com/e68a12a0d012388d6d4408c0760fa90df219b062.jpg" alt="Lone traveler on dunes at sunset with mirror lagoons">
+                    <div class="accent-img-caption">Sunset solitude on the dunes</div>
+                </div>
+                <div class="accent-img">
+                    <img src="https://kimi-web-img.moonshot.cn/img/ipt.images.tshiftcdn.com/1ab402c536a55254889d8677bdb7742324914d4c.jpg" alt="Golden sunrise aerial over dunes and lagoons">
+                    <div class="accent-img-caption">Golden sunrise from above</div>
+                </div>
+                <div class="accent-img">
+                    <img src="https://kimi-web-img.moonshot.cn/img/paulnicklen.com/aa838b636f859627cc0634ac81e121f00cd22b63.jpeg" alt="Dramatic aerial view of white dunes with earth-toned patterns">
+                    <div class="accent-img-caption">Earth and sand in dramatic contrast</div>
+                </div>
+            </div>
+            <div class="future-closing">
+                <p>Lençóis Maranhenses is not just a destination; it is a fleeting dream written in sand and water.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- ════════════════════════════════════════ -->
+    <!-- CLOSING QUOTE                           -->
+    <!-- 背景：日落独行者与泻湖                   -->
+    <!-- ════════════════════════════════════════ -->
+    <section class="closing-quote">
+        <div class="closing-bg"></div>
+        <div class="closing-overlay"></div>
+        <div class="closing-content">
+            <blockquote>
+                In the space between a grain of sand and a drop of water,<br>
+                lies one of Earth's last great wonders.
+            </blockquote>
+            <div class="quote-author">— Lençóis Maranhenses National Park, Brazil</div>
+        </div>
+    </section>
+
+    <!-- ════════════════════════════════════════ -->
+    <!-- FOOTER                                  -->
+    <!-- ════════════════════════════════════════ -->
+    <footer>
+        <p>© 2026 The Desert of Lagoons — A Student Tourism Project by Pengcheng Wang (2300880073) | Group A, Team 8</p>
+    </footer>
+
+</body>
+</html>
